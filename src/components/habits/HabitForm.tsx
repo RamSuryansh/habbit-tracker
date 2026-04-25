@@ -12,13 +12,23 @@ interface HabitFormProps {
   editingHabit?: Habit | null
 }
 
-const defaultForm = {
+const defaultForm: {
+  name: string
+  description: string
+  emoji: string
+  color: string
+  category: string
+  frequency: 'daily' | 'custom'
+  targetDays: number[]
+  reminderEnabled: boolean
+  reminderTime: string
+} = {
   name: '',
   description: '',
   emoji: '💪',
   color: COLORS[0],
   category: CATEGORIES[0],
-  frequency: 'daily' as const,
+  frequency: 'daily',
   targetDays: [0, 1, 2, 3, 4, 5, 6],
   reminderEnabled: false,
   reminderTime: '09:00',
@@ -141,10 +151,7 @@ export default function HabitForm({ open, onClose, editingHabit }: HabitFormProp
                     ? 'ring-2 ring-offset-2 ring-offset-white dark:ring-offset-slate-800 scale-110'
                     : 'hover:scale-110'
                 }`}
-                style={{
-                  backgroundColor: color,
-                  ringColor: form.color === color ? color : undefined,
-                }}
+                style={{ backgroundColor: color }}
               />
             ))}
           </div>

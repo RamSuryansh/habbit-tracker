@@ -1,5 +1,4 @@
-import { useHabitStore, getHabitsForDay } from '@/stores/habitStore'
-import { getDateKey, isToday } from '@/utils/date'
+import { isToday } from '@/utils/date'
 import { isSameMonth } from 'date-fns'
 
 interface DayCellProps {
@@ -7,21 +6,13 @@ interface DayCellProps {
   currentMonth: Date
   onSelect: (date: Date) => void
   selected: boolean
+  completedCount: number
+  total: number
 }
 
-export default function DayCell({ date, currentMonth, onSelect, selected }: DayCellProps) {
-  const habits = useHabitStore((s) => s.habits)
-  const completions = useHabitStore((s) => s.completions)
-
+export default function DayCell({ date, currentMonth, onSelect, selected, completedCount, total }: DayCellProps) {
   const inMonth = isSameMonth(date, currentMonth)
   const today = isToday(date)
-  const dateKey = getDateKey(date)
-  const dayHabits = getHabitsForDay(habits, date.getDay())
-  const dayCompletions = completions[dateKey] ?? []
-  const completedCount = dayHabits.filter((h) =>
-    dayCompletions.includes(h.id),
-  ).length
-  const total = dayHabits.length
   const ratio = total > 0 ? completedCount / total : -1
 
   let bgClass = ''

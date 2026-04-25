@@ -1,5 +1,7 @@
 export type Theme = 'light' | 'dark'
 
+export type TimeFormat = '12h' | '24h'
+
 export type Frequency = 'daily' | 'custom'
 
 export type View = 'today' | 'calendar' | 'stats'
@@ -25,6 +27,7 @@ export interface HabitStore {
   habits: Habit[]
   completions: Completions
   theme: Theme
+  timeFormat: TimeFormat
   notifiedToday: Record<string, string[]>
   dismissedReminders: string[]
 
@@ -35,6 +38,7 @@ export interface HabitStore {
   unarchiveHabit: (id: string) => void
   toggleCompletion: (habitId: string, date: string) => void
   toggleTheme: () => void
+  setTimeFormat: (format: TimeFormat) => void
   markNotified: (habitId: string, date: string) => void
   dismissReminder: (habitId: string) => void
   resetDailyReminders: (date: string) => void

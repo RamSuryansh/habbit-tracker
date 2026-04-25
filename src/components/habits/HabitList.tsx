@@ -1,7 +1,6 @@
 import { Target } from 'lucide-react'
 import { useHabitStore, getHabitsForDay } from '@/stores/habitStore'
 import { useHabitStats } from '@/hooks/useHabitStats'
-import { getToday } from '@/utils/date'
 import ProgressRing from '@/components/ui/ProgressRing'
 import HabitCard from './HabitCard'
 import type { Habit } from '@/types'

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { addMonths, subMonths, format, isSameDay } from 'date-fns'
 import { getCalendarDays, getDateKey } from '@/utils/date'
@@ -21,6 +21,16 @@ export default function CalendarView({ onEditHabit }: CalendarViewProps) {
   const year = currentMonth.getFullYear()
   const month = currentMonth.getMonth()
   const calendarDays = getCalendarDays(year, month)
+
+  const dayCellData = useMemo(() => {
+    return calendarDays.map((date) => {
+      const dateKey = getDateKey(date)
+      const dayHabits = getHabitsForDay(habits, date.getDay())
+      const dayCompletions = completions[dateKey] ?? []
+      const completedCount = dayHabits.filter((h) => dayCompletions.includes(h.id)).length
+      return { completedCount, total: dayHabits.length }
+    })
+  }, [calendarDays, habits, completions])
 
   const selectedHabits = selectedDate
     ? getHabitsForDay(habits, selectedDate.getDay())
@@ -73,6 +83,8 @@ export default function CalendarView({ onEditHabit }: CalendarViewProps) {
             currentMonth={currentMonth}
             selected={selectedDate != null && isSameDay(date, selectedDate)}
             onSelect={setSelectedDate}
+            completedCount={dayCellData[i].completedCount}
+            total={dayCellData[i].total}
           />
         ))}
       </div>

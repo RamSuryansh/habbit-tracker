@@ -1,7 +1,7 @@
-import { Check, Flame, MoreHorizontal, Pencil, Trash2, Archive } from 'lucide-react'
+import { Check, Flame, MoreHorizontal, Pencil, Trash2, Archive, Clock } from 'lucide-react'
 import { useState } from 'react'
 import { useHabitStore } from '@/stores/habitStore'
-import { getToday, getDateKey } from '@/utils/date'
+import { getToday, formatTime } from '@/utils/date'
 import type { Habit } from '@/types'
 
 interface HabitCardProps {
@@ -15,11 +15,11 @@ export default function HabitCard({ habit, date, streak = 0, onEdit }: HabitCard
   const toggleCompletion = useHabitStore((s) => s.toggleCompletion)
   const deleteHabit = useHabitStore((s) => s.deleteHabit)
   const archiveHabit = useHabitStore((s) => s.archiveHabit)
-  const completions = useHabitStore((s) => s.completions)
+  const timeFormat = useHabitStore((s) => s.timeFormat)
   const [showMenu, setShowMenu] = useState(false)
 
   const dateKey = date ?? getToday()
-  const isCompleted = completions[dateKey]?.includes(habit.id) ?? false
+  const isCompleted = useHabitStore((s) => s.completions[dateKey]?.includes(habit.id) ?? false)
 
   return (
     <div
@@ -72,6 +72,12 @@ export default function HabitCard({ habit, date, streak = 0, onEdit }: HabitCard
         {habit.description && (
           <p className="text-xs text-gray-500 dark:text-slate-400 truncate mt-0.5">
             {habit.description}
+          </p>
+        )}
+        {habit.reminderEnabled && (
+          <p className="flex items-center gap-1 text-xs text-gray-400 dark:text-slate-500 mt-0.5">
+            <Clock size={12} />
+            {formatTime(habit.reminderTime, timeFormat)}
           </p>
         )}
       </div>

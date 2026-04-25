@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { useHabitStore } from '@/stores/habitStore'
 import { getDateKey, getLast7Days } from '@/utils/date'
-import { subDays, parseISO } from 'date-fns'
+import { subDays } from 'date-fns'
 import type { Habit } from '@/types'
 
 interface HabitStats {
@@ -50,6 +50,7 @@ function computeStreak(
     } else {
       if (!broken) broken = true
       streak = 0
+      if (best >= (365 - i)) break
     }
   }
 

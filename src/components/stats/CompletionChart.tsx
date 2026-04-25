@@ -11,7 +11,6 @@ interface CompletionChartProps {
 }
 
 export default function CompletionChart({ data }: CompletionChartProps) {
-  const maxTotal = Math.max(1, ...data.map((d) => d.total))
 
   return (
     <div className="p-5 rounded-2xl bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700">

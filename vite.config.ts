@@ -16,4 +16,8 @@ export default defineConfig({
     babel({ presets: [reactCompilerPreset()] }),
     tailwindcss(),
   ],
+  build: {
+    target: 'es2023',
+    cssMinify: true,
+  },
 })

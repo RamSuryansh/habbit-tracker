@@ -1,4 +1,5 @@
 import { format, startOfMonth, endOfMonth, eachDayOfInterval, subDays, isSameDay, isToday as isDateToday, startOfWeek, endOfWeek, differenceInDays, parseISO } from 'date-fns'
+import type { TimeFormat } from '@/types'
 
 export function getDateKey(date: Date): string {
   return format(date, 'yyyy-MM-dd')
@@ -45,4 +46,12 @@ export function daysSince(dateStr: string): number {
 
 export function parseDate(dateKey: string): Date {
   return parseISO(dateKey)
+}
+
+export function formatTime(time: string, timeFormat: TimeFormat): string {
+  if (timeFormat === '24h') return time
+  const [h, m] = time.split(':').map(Number)
+  const period = h >= 12 ? 'PM' : 'AM'
+  const hour12 = h % 12 || 12
+  return `${hour12}:${String(m).padStart(2, '0')} ${period}`
 }

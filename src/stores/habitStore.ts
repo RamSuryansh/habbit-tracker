@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import type { HabitStore, Habit } from '@/types'
+import type { HabitStore, Habit, TimeFormat } from '@/types'
 
 export const useHabitStore = create<HabitStore>()(
   persist(
@@ -8,6 +8,7 @@ export const useHabitStore = create<HabitStore>()(
       habits: [],
       completions: {},
       theme: 'dark',
+      timeFormat: '12h' as TimeFormat,
       notifiedToday: {},
       dismissedReminders: [],
 
@@ -74,6 +75,8 @@ export const useHabitStore = create<HabitStore>()(
         set((state) => ({
           theme: state.theme === 'dark' ? 'light' : 'dark',
         })),
+
+      setTimeFormat: (timeFormat) => set({ timeFormat }),
 
       markNotified: (habitId, date) =>
         set((state) => ({
