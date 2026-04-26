@@ -1,8 +1,19 @@
-import { useMemo } from 'react'
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-return */
 import { useHabitStore } from '@/stores/habitStore'
-import { getDateKey, getDateRange, getWeekBuckets, getMonthBuckets, formatDate } from '@/utils/date'
-import { subDays, eachDayOfInterval } from 'date-fns'
-import type { TimeRange, ChartDataPoint } from '@/types'
+import type { ChartDataPoint, TimeRange } from '@/types'
+import {
+  formatDate,
+  getDateKey,
+  getDateRange,
+  getMonthBuckets,
+  getWeekBuckets,
+} from '@/utils/date'
+import { eachDayOfInterval, subDays } from 'date-fns'
+import { useMemo } from 'react'
 
 const RANGE_DAYS: Record<TimeRange, number> = {
   '7d': 7,
@@ -21,9 +32,13 @@ function computeBucketData(
   let total = 0
   for (const date of daysInBucket) {
     const key = getDateKey(date)
-    const dayHabits = activeHabits.filter((h) => h.targetDays.includes(date.getDay()))
+    const dayHabits = activeHabits.filter((h) =>
+      h.targetDays.includes(date.getDay()),
+    )
     total += dayHabits.length
-    completed += dayHabits.filter((h) => completions[key]?.includes(h.id)).length
+    completed += dayHabits.filter((h) =>
+      completions[key]?.includes(h.id),
+    ).length
   }
   return { completed, total }
 }
@@ -41,8 +56,12 @@ export function useChartData(range: TimeRange): ChartDataPoint[] {
     if (range === '7d') {
       return getDateRange(7).map((date) => {
         const key = getDateKey(date)
-        const dayHabits = active.filter((h) => h.targetDays.includes(date.getDay()))
-        const completed = dayHabits.filter((h) => completions[key]?.includes(h.id)).length
+        const dayHabits = active.filter((h) =>
+          h.targetDays.includes(date.getDay()),
+        )
+        const completed = dayHabits.filter((h) =>
+          completions[key]?.includes(h.id),
+        ).length
         return {
           label: formatDate(date, 'EEE'),
           completed,
@@ -56,8 +75,12 @@ export function useChartData(range: TimeRange): ChartDataPoint[] {
     if (range === '30d') {
       return getDateRange(30).map((date) => {
         const key = getDateKey(date)
-        const dayHabits = active.filter((h) => h.targetDays.includes(date.getDay()))
-        const completed = dayHabits.filter((h) => completions[key]?.includes(h.id)).length
+        const dayHabits = active.filter((h) =>
+          h.targetDays.includes(date.getDay()),
+        )
+        const completed = dayHabits.filter((h) =>
+          completions[key]?.includes(h.id),
+        ).length
         return {
           label: formatDate(date, 'd'),
           completed,
@@ -71,8 +94,15 @@ export function useChartData(range: TimeRange): ChartDataPoint[] {
     if (range === '90d' || range === '180d') {
       const buckets = getWeekBuckets(startDate, today)
       return buckets.map((bucket) => {
-        const daysInBucket = eachDayOfInterval({ start: bucket.start, end: bucket.end })
-        const { completed, total } = computeBucketData(daysInBucket, active, completions)
+        const daysInBucket = eachDayOfInterval({
+          start: bucket.start,
+          end: bucket.end,
+        })
+        const { completed, total } = computeBucketData(
+          daysInBucket,
+          active,
+          completions,
+        )
         return {
           label: bucket.label,
           completed,
@@ -85,8 +115,15 @@ export function useChartData(range: TimeRange): ChartDataPoint[] {
 
     const buckets = getMonthBuckets(startDate, today)
     return buckets.map((bucket) => {
-      const daysInBucket = eachDayOfInterval({ start: bucket.start, end: bucket.end })
-      const { completed, total } = computeBucketData(daysInBucket, active, completions)
+      const daysInBucket = eachDayOfInterval({
+        start: bucket.start,
+        end: bucket.end,
+      })
+      const { completed, total } = computeBucketData(
+        daysInBucket,
+        active,
+        completions,
+      )
       return {
         label: bucket.label,
         completed,

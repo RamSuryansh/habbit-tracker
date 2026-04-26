@@ -1,12 +1,12 @@
-import { useState, useEffect, lazy, Suspense } from 'react'
-import { useHabitStore } from '@/stores/habitStore'
-import { useReminders } from '@/hooks/useReminders'
-import ErrorBoundary from '@/components/ui/ErrorBoundary'
+import HabitForm from '@/components/habits/HabitForm'
+import HabitList from '@/components/habits/HabitList'
 import Header from '@/components/layout/Header'
 import Navigation from '@/components/layout/Navigation'
-import HabitList from '@/components/habits/HabitList'
-import HabitForm from '@/components/habits/HabitForm'
-import type { View, Habit } from '@/types'
+import ErrorBoundary from '@/components/ui/ErrorBoundary'
+import { useReminders } from '@/hooks/useReminders'
+import { useHabitStore } from '@/stores/habitStore'
+import type { Habit, View } from '@/types'
+import { lazy, Suspense, useEffect, useState } from 'react'
 
 const CalendarView = lazy(() => import('@/components/calendar/CalendarView'))
 const StatsView = lazy(() => import('@/components/stats/StatsView'))
@@ -40,16 +40,25 @@ export default function App() {
 
   return (
     <ErrorBoundary>
-      <div className="min-h-screen bg-gray-50 dark:bg-slate-900 transition-colors duration-200">
-        <div className="mx-auto max-w-2xl px-4 pb-24 sm:pb-8">
+      <div className='min-h-screen bg-gray-50 dark:bg-slate-900 transition-colors duration-200'>
+        <div className='mx-auto max-w-2xl px-4 pb-24 sm:pb-8'>
           <Header onAddHabit={handleAddHabit} />
           <Navigation activeView={activeView} onViewChange={setActiveView} />
 
           <main>
             {activeView === 'today' && (
-              <HabitList onEditHabit={handleEditHabit} onAddHabit={handleAddHabit} />
+              <HabitList
+                onEditHabit={handleEditHabit}
+                onAddHabit={handleAddHabit}
+              />
             )}
-            <Suspense fallback={<div className="flex justify-center py-20"><div className="w-8 h-8 border-3 border-indigo-600 border-t-transparent rounded-full animate-spin" /></div>}>
+            <Suspense
+              fallback={
+                <div className='flex justify-center py-20'>
+                  <div className='w-8 h-8 border-3 border-indigo-600 border-t-transparent rounded-full animate-spin' />
+                </div>
+              }
+            >
               {activeView === 'calendar' && (
                 <CalendarView onEditHabit={handleEditHabit} />
               )}

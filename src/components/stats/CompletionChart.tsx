@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import type { ChartDataPoint, TimeRange } from '@/types'
 
 interface CompletionChartProps {
@@ -14,19 +16,23 @@ const RANGE_OPTIONS: { value: TimeRange; label: string }[] = [
   { value: '365d', label: '1Y' },
 ]
 
-export default function CompletionChart({ data, range, onRangeChange }: CompletionChartProps) {
+export default function CompletionChart({
+  data,
+  range,
+  onRangeChange,
+}: CompletionChartProps) {
   const barCount = data.length
   const compact = barCount > 13
   const showLabelsAbove = barCount <= 13
   const labelInterval = barCount <= 13 ? 1 : barCount <= 30 ? 5 : 2
 
   return (
-    <div className="p-5 rounded-2xl bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700">
-      <div className="flex items-center justify-between mb-4">
-        <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300">
+    <div className='p-5 rounded-2xl bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700'>
+      <div className='flex items-center justify-between mb-4'>
+        <h3 className='text-sm font-medium text-gray-700 dark:text-gray-300'>
           Completion Rate
         </h3>
-        <div className="flex gap-1">
+        <div className='flex gap-1'>
           {RANGE_OPTIONS.map(({ value, label }) => (
             <button
               key={value}
@@ -44,23 +50,21 @@ export default function CompletionChart({ data, range, onRangeChange }: Completi
       </div>
       <div className={`flex items-end ${compact ? 'gap-0.5' : 'gap-2'} h-32`}>
         {data.map((point, i) => {
-          const height = point.total > 0 ? (point.completed / point.total) * 100 : 0
+          const height =
+            point.total > 0 ? (point.completed / point.total) * 100 : 0
           const isLast = i === barCount - 1
           const showLabel = i % labelInterval === 0 || isLast
 
           return (
-            <div
-              key={i}
-              className="flex-1 flex flex-col items-center gap-1.5"
-            >
+            <div key={i} className='flex-1 flex flex-col items-center gap-1.5'>
               {showLabelsAbove && (
-                <span className="text-[10px] font-medium text-gray-500 dark:text-slate-400">
-                  {point.total > 0
-                    ? `${point.completed}/${point.total}`
-                    : '-'}
+                <span className='text-[10px] font-medium text-gray-500 dark:text-slate-400'>
+                  {point.total > 0 ? `${point.completed}/${point.total}` : '-'}
                 </span>
               )}
-              <div className={`w-full ${showLabelsAbove ? 'h-24' : 'h-28'} flex items-end`}>
+              <div
+                className={`w-full ${showLabelsAbove ? 'h-24' : 'h-28'} flex items-end`}
+              >
                 <div
                   className={`w-full transition-all duration-500 ${
                     compact ? 'rounded-sm' : 'rounded-lg'

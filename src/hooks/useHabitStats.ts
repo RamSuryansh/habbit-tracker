@@ -1,8 +1,8 @@
-import { useMemo } from 'react'
 import { useHabitStore } from '@/stores/habitStore'
+import type { Habit } from '@/types'
 import { getDateKey, getLast7Days } from '@/utils/date'
 import { subDays } from 'date-fns'
-import type { Habit } from '@/types'
+import { useMemo } from 'react'
 
 interface HabitStats {
   currentStreak: number
@@ -50,7 +50,7 @@ function computeStreak(
     } else {
       if (!broken) broken = true
       streak = 0
-      if (best >= (365 - i)) break
+      if (best >= 365 - i) break
     }
   }
 
@@ -89,12 +89,16 @@ export function useHabitStats(): OverallStats {
     const dayOfWeek = today.getDay()
 
     const todayHabits = active.filter((h) => h.targetDays.includes(dayOfWeek))
-    const todayCompleted = todayHabits.filter(
-      (h) => completions[todayKey]?.includes(h.id),
+    const todayCompleted = todayHabits.filter((h) =>
+      completions[todayKey]?.includes(h.id),
     ).length
 
     const perHabit = active.map((habit) => {
-      const { current, best } = computeStreak(habit.id, habit.targetDays, completions)
+      const { current, best } = computeStreak(
+        habit.id,
+        habit.targetDays,
+        completions,
+      )
       const totalCompletions = Object.values(completions).filter((ids) =>
         ids.includes(habit.id),
       ).length
@@ -103,8 +107,18 @@ export function useHabitStats(): OverallStats {
         habit,
         currentStreak: current,
         bestStreak: best,
-        completionRate7d: computeRate(habit.id, habit.targetDays, completions, 7),
-        completionRate30d: computeRate(habit.id, habit.targetDays, completions, 30),
+        completionRate7d: computeRate(
+          habit.id,
+          habit.targetDays,
+          completions,
+          7,
+        ),
+        completionRate30d: computeRate(
+          habit.id,
+          habit.targetDays,
+          completions,
+          30,
+        ),
         totalCompletions,
       }
     })
@@ -114,8 +128,8 @@ export function useHabitStats(): OverallStats {
       const dayHabits = active.filter((h) =>
         h.targetDays.includes(date.getDay()),
       )
-      const completed = dayHabits.filter(
-        (h) => completions[key]?.includes(h.id),
+      const completed = dayHabits.filter((h) =>
+        completions[key]?.includes(h.id),
       ).length
       return { date, completed, total: dayHabits.length }
     })

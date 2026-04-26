@@ -21,10 +21,39 @@ export const COLORS = [
 ] as const
 
 export const EMOJIS = [
-  '💪', '🏃', '📚', '🧘', '💧', '🥗', '😴', '✍️',
-  '🎯', '🧠', '🎨', '🎵', '💰', '🌱', '❤️', '⭐',
-  '🔥', '📖', '🏋️', '🚶', '🍎', '☀️', '🧹', '💊',
+  '💪',
+  '🏃',
+  '📚',
+  '🧘',
+  '💧',
+  '🥗',
+  '😴',
+  '✍️',
+  '🎯',
+  '🧠',
+  '🎨',
+  '🎵',
+  '💰',
+  '🌱',
+  '❤️',
+  '⭐',
+  '🔥',
+  '📖',
+  '🏋️',
+  '🚶',
+  '🍎',
+  '☀️',
+  '🧹',
+  '💊',
 ] as const
 
-export const DAY_LABELS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'] as const
+export const DAY_LABELS = [
+  'Sun',
+  'Mon',
+  'Tue',
+  'Wed',
+  'Thu',
+  'Fri',
+  'Sat',
+] as const
 export const DAY_LABELS_SHORT = ['S', 'M', 'T', 'W', 'T', 'F', 'S'] as const

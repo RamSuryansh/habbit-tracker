@@ -3,7 +3,9 @@ export function getPermissionStatus(): NotificationPermission | 'unsupported' {
   return Notification.permission
 }
 
-export async function requestPermission(): Promise<NotificationPermission | 'unsupported'> {
+export async function requestPermission(): Promise<
+  NotificationPermission | 'unsupported'
+> {
   if (!('Notification' in window)) return 'unsupported'
   if (Notification.permission === 'granted') return 'granted'
   return Notification.requestPermission()

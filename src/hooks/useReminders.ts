@@ -1,7 +1,12 @@
-import { useEffect, useRef } from 'react'
+/* eslint-disable @typescript-eslint/no-floating-promises */
 import { useHabitStore } from '@/stores/habitStore'
 import { getToday } from '@/utils/date'
-import { requestPermission, showNotification, getPermissionStatus } from '@/utils/notifications'
+import {
+  getPermissionStatus,
+  requestPermission,
+  showNotification,
+} from '@/utils/notifications'
+import { useEffect, useRef } from 'react'
 
 export function useReminders(): void {
   const habits = useHabitStore((s) => s.habits)

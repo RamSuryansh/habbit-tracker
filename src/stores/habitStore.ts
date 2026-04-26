@@ -1,6 +1,6 @@
+import type { Habit, HabitStore, TimeFormat } from '@/types'
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import type { HabitStore, Habit, TimeFormat } from '@/types'
 
 export const useHabitStore = create<HabitStore>()(
   persist(
@@ -94,11 +94,17 @@ export const useHabitStore = create<HabitStore>()(
       resetDailyReminders: (date) =>
         set((state) => {
           const hasCurrentDate = date in state.notifiedToday
-          if (hasCurrentDate && Object.keys(state.notifiedToday).length === 1 && state.dismissedReminders.length === 0) {
+          if (
+            hasCurrentDate &&
+            Object.keys(state.notifiedToday).length === 1 &&
+            state.dismissedReminders.length === 0
+          ) {
             return {}
           }
           return {
-            notifiedToday: hasCurrentDate ? { [date]: state.notifiedToday[date] } : {},
+            notifiedToday: hasCurrentDate
+              ? { [date]: state.notifiedToday[date] }
+              : {},
             dismissedReminders: [],
           }
         }),
@@ -118,7 +124,5 @@ export function getArchivedHabits(habits: Habit[]): Habit[] {
 }
 
 export function getHabitsForDay(habits: Habit[], dayOfWeek: number): Habit[] {
-  return getActiveHabits(habits).filter((h) =>
-    h.targetDays.includes(dayOfWeek),
-  )
+  return getActiveHabits(habits).filter((h) => h.targetDays.includes(dayOfWeek))
 }

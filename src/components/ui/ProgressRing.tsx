@@ -18,32 +18,32 @@ export default function ProgressRing({
   const offset = circumference * (1 - Math.min(1, Math.max(0, progress)))
 
   return (
-    <div className="relative inline-flex items-center justify-center">
-      <svg width={size} height={size} className="-rotate-90">
+    <div className='relative inline-flex items-center justify-center'>
+      <svg width={size} height={size} className='-rotate-90'>
         <circle
           cx={size / 2}
           cy={size / 2}
           r={radius}
-          fill="none"
-          stroke="currentColor"
+          fill='none'
+          stroke='currentColor'
           strokeWidth={strokeWidth}
-          className="text-gray-200 dark:text-slate-700"
+          className='text-gray-200 dark:text-slate-700'
         />
         <circle
           cx={size / 2}
           cy={size / 2}
           r={radius}
-          fill="none"
+          fill='none'
           stroke={color}
           strokeWidth={strokeWidth}
-          strokeLinecap="round"
+          strokeLinecap='round'
           strokeDasharray={circumference}
           strokeDashoffset={offset}
-          className="transition-[stroke-dashoffset] duration-500 ease-out"
+          className='transition-[stroke-dashoffset] duration-500 ease-out'
         />
       </svg>
       {children && (
-        <div className="absolute inset-0 flex items-center justify-center">
+        <div className='absolute inset-0 flex items-center justify-center'>
           {children}
         </div>
       )}

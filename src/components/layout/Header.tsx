@@ -1,8 +1,8 @@
-import { Sun, Moon, Plus, Settings, Clock } from 'lucide-react'
-import { useState } from 'react'
-import { useHabitStore } from '@/stores/habitStore'
 import Button from '@/components/ui/Button'
+import { useHabitStore } from '@/stores/habitStore'
 import type { TimeFormat } from '@/types'
+import { Clock, Moon, Plus, Settings, Sun } from 'lucide-react'
+import { useState } from 'react'
 
 interface HeaderProps {
   onAddHabit: () => void
@@ -16,12 +16,12 @@ export default function Header({ onAddHabit }: HeaderProps) {
   const [showSettings, setShowSettings] = useState(false)
 
   return (
-    <header className="flex items-center justify-between py-4">
+    <header className='flex items-center justify-between py-4'>
       <div>
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-white tracking-tight">
+        <h1 className='text-2xl font-bold text-gray-900 dark:text-white tracking-tight'>
           Habit Tracker
         </h1>
-        <p className="text-sm text-gray-500 dark:text-slate-400 mt-0.5">
+        <p className='text-sm text-gray-500 dark:text-slate-400 mt-0.5'>
           {new Date().toLocaleDateString('en-US', {
             weekday: 'long',
             month: 'long',
@@ -29,34 +29,34 @@ export default function Header({ onAddHabit }: HeaderProps) {
           })}
         </p>
       </div>
-      <div className="flex items-center gap-2">
+      <div className='flex items-center gap-2'>
         <button
           onClick={toggleTheme}
-          className="p-2.5 rounded-xl text-gray-500 hover:text-gray-700 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
-          aria-label="Toggle theme"
+          className='p-2.5 rounded-xl text-gray-500 hover:text-gray-700 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors cursor-pointer'
+          aria-label='Toggle theme'
         >
           {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
         </button>
-        <div className="relative">
+        <div className='relative'>
           <button
             onClick={() => setShowSettings(!showSettings)}
-            className="p-2.5 rounded-xl text-gray-500 hover:text-gray-700 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
-            aria-label="Settings"
+            className='p-2.5 rounded-xl text-gray-500 hover:text-gray-700 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors cursor-pointer'
+            aria-label='Settings'
           >
             <Settings size={20} />
           </button>
           {showSettings && (
             <>
               <div
-                className="fixed inset-0 z-40"
+                className='fixed inset-0 z-40'
                 onClick={() => setShowSettings(false)}
               />
-              <div className="absolute right-0 top-full mt-2 z-50 w-56 py-2 rounded-xl bg-white dark:bg-slate-700 shadow-xl border border-gray-200 dark:border-slate-600">
-                <div className="px-3 py-2">
-                  <p className="flex items-center gap-2 text-xs font-medium text-gray-500 dark:text-slate-400 mb-2">
+              <div className='absolute right-0 top-full mt-2 z-50 w-56 py-2 rounded-xl bg-white dark:bg-slate-700 shadow-xl border border-gray-200 dark:border-slate-600'>
+                <div className='px-3 py-2'>
+                  <p className='flex items-center gap-2 text-xs font-medium text-gray-500 dark:text-slate-400 mb-2'>
                     <Clock size={14} /> Time Format
                   </p>
-                  <div className="flex gap-1">
+                  <div className='flex gap-1'>
                     {(['12h', '24h'] as TimeFormat[]).map((fmt) => (
                       <button
                         key={fmt}
@@ -76,9 +76,9 @@ export default function Header({ onAddHabit }: HeaderProps) {
             </>
           )}
         </div>
-        <Button onClick={onAddHabit} size="sm">
+        <Button onClick={onAddHabit} size='sm'>
           <Plus size={18} />
-          <span className="hidden sm:inline">Add Habit</span>
+          <span className='hidden sm:inline'>Add Habit</span>
         </Button>
       </div>
     </header>

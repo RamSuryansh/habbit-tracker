@@ -42,7 +42,10 @@ export interface HabitStore {
   dismissedReminders: string[]
 
   addHabit: (habit: Omit<Habit, 'id' | 'createdAt' | 'archived'>) => void
-  editHabit: (id: string, updates: Partial<Omit<Habit, 'id' | 'createdAt'>>) => void
+  editHabit: (
+    id: string,
+    updates: Partial<Omit<Habit, 'id' | 'createdAt'>>,
+  ) => void
   deleteHabit: (id: string) => void
   archiveHabit: (id: string) => void
   unarchiveHabit: (id: string) => void

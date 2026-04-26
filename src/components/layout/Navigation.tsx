@@ -1,5 +1,5 @@
-import { CheckCircle2, Calendar, BarChart3, ListChecks } from 'lucide-react'
 import type { View } from '@/types'
+import { BarChart3, Calendar, CheckCircle2, ListChecks } from 'lucide-react'
 
 interface NavigationProps {
   activeView: View
@@ -13,10 +13,13 @@ const tabs: { view: View; label: string; icon: typeof CheckCircle2 }[] = [
   { view: 'habits', label: 'Habits', icon: ListChecks },
 ]
 
-export default function Navigation({ activeView, onViewChange }: NavigationProps) {
+export default function Navigation({
+  activeView,
+  onViewChange,
+}: NavigationProps) {
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-40 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border-t border-gray-200 dark:border-slate-800 sm:static sm:border-t-0 sm:bg-transparent sm:dark:bg-transparent sm:backdrop-blur-none sm:mb-6">
-      <div className="flex items-center justify-around sm:justify-start sm:gap-1 max-w-4xl mx-auto px-4 sm:px-0">
+    <nav className='fixed bottom-0 left-0 right-0 z-40 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border-t border-gray-200 dark:border-slate-800 sm:static sm:border-t-0 sm:bg-transparent sm:dark:bg-transparent sm:backdrop-blur-none sm:mb-6'>
+      <div className='flex items-center justify-around sm:justify-start sm:gap-1 max-w-4xl mx-auto px-4 sm:px-0'>
         {tabs.map(({ view, label, icon: Icon }) => {
           const active = activeView === view
           return (
