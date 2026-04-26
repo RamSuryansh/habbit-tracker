@@ -4,7 +4,17 @@ export type TimeFormat = '12h' | '24h'
 
 export type Frequency = 'daily' | 'custom'
 
-export type View = 'today' | 'calendar' | 'stats'
+export type View = 'today' | 'calendar' | 'stats' | 'habits'
+
+export type TimeRange = '7d' | '30d' | '90d' | '180d' | '365d'
+
+export interface ChartDataPoint {
+  label: string
+  completed: number
+  total: number
+  startDate: Date
+  endDate: Date
+}
 
 export interface Habit {
   id: string

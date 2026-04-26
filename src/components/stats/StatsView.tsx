@@ -1,10 +1,15 @@
+import { useState } from 'react'
 import { BarChart3, TrendingUp, Award, Zap } from 'lucide-react'
 import { useHabitStats } from '@/hooks/useHabitStats'
+import { useChartData } from '@/hooks/useChartData'
 import StreakCard from './StreakCard'
 import CompletionChart from './CompletionChart'
+import type { TimeRange } from '@/types'
 
 export default function StatsView() {
   const stats = useHabitStats()
+  const [chartRange, setChartRange] = useState<TimeRange>('7d')
+  const chartData = useChartData(chartRange)
 
   if (stats.totalHabits === 0) {
     return (
@@ -43,7 +48,7 @@ export default function StatsView() {
         />
       </div>
 
-      <CompletionChart data={stats.last7Days} />
+      <CompletionChart data={chartData} range={chartRange} onRangeChange={setChartRange} />
 
       <div className="grid grid-cols-2 gap-3">
         <div className="p-4 rounded-2xl bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700">

@@ -1,4 +1,4 @@
-import { CheckCircle2, Calendar, BarChart3 } from 'lucide-react'
+import { CheckCircle2, Calendar, BarChart3, ListChecks } from 'lucide-react'
 import type { View } from '@/types'
 
 interface NavigationProps {
@@ -10,6 +10,7 @@ const tabs: { view: View; label: string; icon: typeof CheckCircle2 }[] = [
   { view: 'today', label: 'Today', icon: CheckCircle2 },
   { view: 'calendar', label: 'Calendar', icon: Calendar },
   { view: 'stats', label: 'Stats', icon: BarChart3 },
+  { view: 'habits', label: 'Habits', icon: ListChecks },
 ]
 
 export default function Navigation({ activeView, onViewChange }: NavigationProps) {

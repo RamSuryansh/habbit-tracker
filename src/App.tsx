@@ -10,6 +10,7 @@ import type { View, Habit } from '@/types'
 
 const CalendarView = lazy(() => import('@/components/calendar/CalendarView'))
 const StatsView = lazy(() => import('@/components/stats/StatsView'))
+const AllHabitsView = lazy(() => import('@/components/habits/AllHabitsView'))
 
 export default function App() {
   const theme = useHabitStore((s) => s.theme)
@@ -53,6 +54,9 @@ export default function App() {
                 <CalendarView onEditHabit={handleEditHabit} />
               )}
               {activeView === 'stats' && <StatsView />}
+              {activeView === 'habits' && (
+                <AllHabitsView onEditHabit={handleEditHabit} />
+              )}
             </Suspense>
           </main>
         </div>

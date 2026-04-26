@@ -1,4 +1,4 @@
-import { format, startOfMonth, endOfMonth, eachDayOfInterval, subDays, isSameDay, isToday as isDateToday, startOfWeek, endOfWeek, differenceInDays, parseISO } from 'date-fns'
+import { format, startOfMonth, endOfMonth, eachDayOfInterval, subDays, isSameDay, isToday as isDateToday, startOfWeek, endOfWeek, differenceInDays, parseISO, eachWeekOfInterval, eachMonthOfInterval, min as minDate, max as maxDate } from 'date-fns'
 import type { TimeFormat } from '@/types'
 
 export function getDateKey(date: Date): string {
@@ -54,4 +54,33 @@ export function formatTime(time: string, timeFormat: TimeFormat): string {
   const period = h >= 12 ? 'PM' : 'AM'
   const hour12 = h % 12 || 12
   return `${hour12}:${String(m).padStart(2, '0')} ${period}`
+}
+
+export function getDateRange(days: number): Date[] {
+  const today = new Date()
+  return Array.from({ length: days }, (_, i) => subDays(today, days - 1 - i))
+}
+
+export function getWeekBuckets(start: Date, end: Date): { start: Date; end: Date; label: string }[] {
+  const weeks = eachWeekOfInterval({ start, end }, { weekStartsOn: 0 })
+  return weeks.map((weekStart, i) => {
+    const weekEnd = endOfWeek(weekStart, { weekStartsOn: 0 })
+    return {
+      start: maxDate([weekStart, start]),
+      end: minDate([weekEnd, end]),
+      label: `W${i + 1}`,
+    }
+  })
+}
+
+export function getMonthBuckets(start: Date, end: Date): { start: Date; end: Date; label: string }[] {
+  const months = eachMonthOfInterval({ start, end })
+  return months.map((monthStart) => {
+    const monthEnd = endOfMonth(monthStart)
+    return {
+      start: maxDate([monthStart, start]),
+      end: minDate([monthEnd, end]),
+      label: format(monthStart, 'MMM'),
+    }
+  })
 }
