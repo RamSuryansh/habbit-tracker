@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import type { ChartDataPoint, TimeRange } from '@/types'
 
 interface CompletionChartProps {
@@ -28,7 +26,7 @@ export default function CompletionChart({
 
   return (
     <div className='p-5 rounded-2xl bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700'>
-      <div className='flex items-center justify-between mb-4'>
+      <div className='flex items-center justify-between mb-7 border-b border-gray-200 dark:border-slate-700 pb-2'>
         <h3 className='text-sm font-medium text-gray-700 dark:text-gray-300'>
           Completion Rate
         </h3>
